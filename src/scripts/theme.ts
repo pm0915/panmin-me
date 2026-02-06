@@ -1,11 +1,11 @@
 // Constants
-const THEME = "theme";
-const LIGHT = "light";
-const DARK = "dark";
+const THEME = 'theme';
+const LIGHT = 'light';
+const DARK = 'dark';
 
 // Initial color scheme
 // Can be "light", "dark", or empty string for system's prefers-color-scheme
-const initialColorScheme = "";
+const initialColorScheme = '';
 
 function getPreferTheme(): string {
   // get theme data from local storage (user's explicit choice)
@@ -16,9 +16,7 @@ function getPreferTheme(): string {
   if (initialColorScheme) return initialColorScheme;
 
   // return user device's prefer color scheme (system fallback)
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? DARK
-    : LIGHT;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? DARK : LIGHT;
 }
 
 // Use existing theme value from inline script if available, otherwise detect
@@ -30,9 +28,9 @@ function setPreference(): void {
 }
 
 function reflectPreference(): void {
-  document.firstElementChild?.setAttribute("data-theme", themeValue);
+  document.firstElementChild?.setAttribute('data-theme', themeValue);
 
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  document.querySelector('#theme-btn')?.setAttribute('aria-label', themeValue);
 
   // Get a reference to the body element
   const body = document.body;
@@ -46,9 +44,7 @@ function reflectPreference(): void {
     const bgColor = computedStyles.backgroundColor;
 
     // Set the background color in <meta theme-color ... />
-    document
-      .querySelector("meta[name='theme-color']")
-      ?.setAttribute("content", bgColor);
+    document.querySelector("meta[name='theme-color']")?.setAttribute('content', bgColor);
   }
 }
 
@@ -76,7 +72,7 @@ function setThemeFeature(): void {
   reflectPreference();
 
   // now this script can find and listen for clicks on the control
-  document.querySelector("#theme-btn")?.addEventListener("click", () => {
+  document.querySelector('#theme-btn')?.addEventListener('click', () => {
     themeValue = themeValue === LIGHT ? DARK : LIGHT;
     window.theme?.setTheme(themeValue);
     setPreference();
@@ -87,27 +83,25 @@ function setThemeFeature(): void {
 setThemeFeature();
 
 // Runs on view transitions navigation
-document.addEventListener("astro:after-swap", setThemeFeature);
+document.addEventListener('astro:after-swap', setThemeFeature);
 
 // Set theme-color value before page transition
 // to avoid navigation bar color flickering in Android dark mode
-document.addEventListener("astro:before-swap", event => {
+document.addEventListener('astro:before-swap', (event) => {
   const astroEvent = event;
-  const bgColor = document
-    .querySelector("meta[name='theme-color']")
-    ?.getAttribute("content");
+  const bgColor = document.querySelector("meta[name='theme-color']")?.getAttribute('content');
 
   if (bgColor) {
     astroEvent.newDocument
       .querySelector("meta[name='theme-color']")
-      ?.setAttribute("content", bgColor);
+      ?.setAttribute('content', bgColor);
   }
 });
 
 // sync with system changes
 window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", ({ matches: isDark }) => {
+  .matchMedia('(prefers-color-scheme: dark)')
+  .addEventListener('change', ({ matches: isDark }) => {
     themeValue = isDark ? DARK : LIGHT;
     window.theme?.setTheme(themeValue);
     setPreference();

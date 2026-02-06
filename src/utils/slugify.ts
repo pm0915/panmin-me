@@ -1,5 +1,5 @@
-import kebabcase from "lodash.kebabcase";
-import slugify from "slugify";
+import kebabcase from 'lodash.kebabcase';
+import slugify from 'slugify';
 
 /**
  * Check if string contains non-Latin characters
@@ -20,4 +20,4 @@ export const slugifyStr = (str: string): string => {
   return slugify(str, { lower: true });
 };
 
-export const slugifyAll = (arr: string[]) => arr.map(str => slugifyStr(str));
+export const slugifyAll = (arr: string[]) => arr.map((str) => slugifyStr(str));

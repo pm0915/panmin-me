@@ -1,19 +1,18 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import IconEdit from "@/assets/icons/IconEdit.svg";
-import { SITE } from "@/config";
+import type { CollectionEntry } from 'astro:content';
+import IconEdit from '@/assets/icons/IconEdit.svg';
+import { SITE } from '@/config';
 
 type Props = {
-  hideEditPost?: CollectionEntry<"blog">["data"]["hideEditPost"];
+  hideEditPost?: CollectionEntry<'blog'>['data']['hideEditPost'];
   class?: string;
-  post: CollectionEntry<"blog">;
+  post: CollectionEntry<'blog'>;
 };
 
-const { hideEditPost, post, class: className = "" } = Astro.props;
+const { hideEditPost, post, class: className = '' } = Astro.props;
 
 const href = `${SITE.editPost.url}${post.filePath}`;
-const showEditPost =
-  SITE.editPost.enabled && !hideEditPost && href.trim() !== "";
+const showEditPost = SITE.editPost.enabled && !hideEditPost && href.trim() !== '';
 ---
 
 {
@@ -22,10 +21,7 @@ const showEditPost =
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      class:list={[
-        "flex justify-baseline gap-1.5 opacity-80 hover:text-accent",
-        className,
-      ]}
+      class:list={['flex justify-baseline gap-1.5 opacity-80 hover:text-accent', className]}
     >
       <IconEdit class="inline-block" />
       <span>{SITE.editPost.text}</span>

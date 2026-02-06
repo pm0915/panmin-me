@@ -1,12 +1,12 @@
 ---
-import "@pagefind/default-ui/css/ui.css";
-import Main from "@/layouts/Main.astro";
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import { SITE } from "@/config";
+import '@pagefind/default-ui/css/ui.css';
+import Main from '@/layouts/Main.astro';
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { SITE } from '@/config';
 
-const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
+const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : '/';
 ---
 
 <Layout title={`Search | ${SITE.title}`}>
@@ -19,18 +19,17 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
 
 <script>
   function initSearch() {
-    const pageFindSearch: HTMLElement | null =
-      document.querySelector("#pagefind-search");
+    const pageFindSearch: HTMLElement | null = document.querySelector('#pagefind-search');
 
     if (!pageFindSearch) return;
 
     const params = new URLSearchParams(window.location.search);
 
-    const onIdle = window.requestIdleCallback || (cb => setTimeout(cb, 1));
+    const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
 
     onIdle(async () => {
       // @ts-expect-error — Missing types for @pagefind/default-ui package.
-      const { PagefindUI } = await import("@pagefind/default-ui");
+      const { PagefindUI } = await import('@pagefind/default-ui');
 
       // Display warning inn dev mode
       if (import.meta.env.DEV) {
@@ -44,45 +43,45 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
 
       // Init pagefind ui
       const search = new PagefindUI({
-        element: "#pagefind-search",
+        element: '#pagefind-search',
         showImages: false,
         showSubResults: true,
         processTerm: function (term: string) {
-          params.set("q", term); // Update the `q` parameter in the URL
-          history.replaceState(history.state, "", "?" + params.toString()); // Push the new URL without reloading
+          params.set('q', term); // Update the `q` parameter in the URL
+          history.replaceState(history.state, '', '?' + params.toString()); // Push the new URL without reloading
 
           const backUrl = pageFindSearch?.dataset?.backurl;
-          sessionStorage.setItem("backUrl", backUrl + "?" + params.toString());
+          sessionStorage.setItem('backUrl', backUrl + '?' + params.toString());
 
           return term;
         },
       });
 
       // If search param exists (eg: search?q=astro), trigger search
-      const query = params.get("q");
+      const query = params.get('q');
       if (query) {
         search.triggerSearch(query);
       }
 
       // Reset search param if search input is cleared
-      const searchInput = document.querySelector(".pagefind-ui__search-input");
-      const clearButton = document.querySelector(".pagefind-ui__search-clear");
-      searchInput?.addEventListener("input", resetSearchParam);
-      clearButton?.addEventListener("click", resetSearchParam);
+      const searchInput = document.querySelector('.pagefind-ui__search-input');
+      const clearButton = document.querySelector('.pagefind-ui__search-clear');
+      searchInput?.addEventListener('input', resetSearchParam);
+      clearButton?.addEventListener('click', resetSearchParam);
 
       function resetSearchParam(e: Event) {
-        if ((e.target as HTMLInputElement)?.value.trim() === "") {
-          history.replaceState(history.state, "", window.location.pathname);
+        if ((e.target as HTMLInputElement)?.value.trim() === '') {
+          history.replaceState(history.state, '', window.location.pathname);
         }
       }
     });
   }
 
-  document.addEventListener("astro:after-swap", () => {
-    const pagefindSearch = document.querySelector("#pagefind-search");
+  document.addEventListener('astro:after-swap', () => {
+    const pagefindSearch = document.querySelector('#pagefind-search');
 
     // if pagefind search form already exists, don't initialize search component
-    if (pagefindSearch && pagefindSearch.querySelector("form")) return;
+    if (pagefindSearch && pagefindSearch.querySelector('form')) return;
 
     initSearch();
   });

@@ -1,33 +1,33 @@
 ---
-import { getCollection } from "astro:content";
-import Main from "@/layouts/Main.astro";
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Card from "@/components/Card.astro";
-import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
-import { SITE } from "@/config";
+import { getCollection } from 'astro:content';
+import Main from '@/layouts/Main.astro';
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import Card from '@/components/Card.astro';
+import getPostsByGroupCondition from '@/utils/getPostsByGroupCondition';
+import { SITE } from '@/config';
 
 // Redirect to 404 page if `showArchives` config is false
 if (!SITE.showArchives) {
-  return Astro.redirect("/404");
+  return Astro.redirect('/404');
 }
 
-const posts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = await getCollection('blog', ({ data }) => !data.draft);
 
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 ---
 
@@ -35,21 +35,14 @@ const months = [
   <Header />
   <Main pageTitle="Archives" pageDesc="All the articles I've archived.">
     {
-      Object.entries(
-        getPostsByGroupCondition(posts, post =>
-          post.data.pubDatetime.getFullYear()
-        )
-      )
+      Object.entries(getPostsByGroupCondition(posts, (post) => post.data.pubDatetime.getFullYear()))
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
         .map(([year, yearGroup]) => (
           <div>
             <span class="text-2xl font-bold">{year}</span>
             <sup class="text-sm">{yearGroup.length}</sup>
             {Object.entries(
-              getPostsByGroupCondition(
-                yearGroup,
-                post => post.data.pubDatetime.getMonth() + 1
-              )
+              getPostsByGroupCondition(yearGroup, (post) => post.data.pubDatetime.getMonth() + 1),
             )
               .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
               .map(([month, monthGroup]) => (
@@ -62,14 +55,10 @@ const months = [
                     {monthGroup
                       .sort(
                         (a, b) =>
-                          Math.floor(
-                            new Date(b.data.pubDatetime).getTime() / 1000
-                          ) -
-                          Math.floor(
-                            new Date(a.data.pubDatetime).getTime() / 1000
-                          )
+                          Math.floor(new Date(b.data.pubDatetime).getTime() / 1000) -
+                          Math.floor(new Date(a.data.pubDatetime).getTime() / 1000),
                       )
-                      .map(data => (
+                      .map((data) => (
                         <Card {...data} />
                       ))}
                   </ul>
