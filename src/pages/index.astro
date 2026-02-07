@@ -23,7 +23,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={['pt-8 pb-6', 'border-b border-border']}>
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">Mingalaba</h1>
+      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
+        console.log("Hello World")
+      </h1>
       <a
         target="_blank"
         href="/rss.xml"
@@ -35,18 +37,23 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         <span class="sr-only">RSS 订阅</span>
       </a>
 
-      <p>
-        AstroPaper 是一个简约、响应式、无障碍且 SEO 友好的 Astro
-        博客主题。该主题遵循最佳实践，开箱即用地提供无障碍支持。默认支持明暗主题模式，还可以配置其他配色方案。
-      </p>
+      <p>欢迎来到我的博客！这里没有 bug，只有 feature。偶尔写写代码，偶尔记录生活。</p>
       <p class="mt-2">
-        阅读博客文章或查看
+        如果你也热爱编程，欢迎
         <LinkButton
           class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
+          href="/posts/"
         >
-          README
-        </LinkButton>了解更多。
+          看看我的文章
+        </LinkButton>
+        ，或者通过
+        <LinkButton
+          class="underline decoration-dashed underline-offset-4 hover:text-accent"
+          href="/about/"
+        >
+          关于页面
+        </LinkButton>
+        了解更多。
       </p>
       {
         // only display if at least one social link is enabled
