@@ -20,25 +20,25 @@ export const SOCIALS: Social[] = [
   {
     name: 'Instagram',
     href: 'https://www.instagram.com/minpan1206',
-    linkTitle: `${SITE.title} on Instagram`,
+    linkTitle: `${SITE.title} 的 Instagram`,
     icon: IconInstagram,
   },
   {
     name: 'GitHub',
     href: 'https://github.com/pm0915',
-    linkTitle: `${SITE.title} on GitHub`,
+    linkTitle: `${SITE.title} 的 GitHub`,
     icon: IconGitHub,
   },
   {
     name: 'X',
     href: 'https://x.com/minpan1206',
-    linkTitle: `${SITE.title} on X`,
+    linkTitle: `${SITE.title} 的 X`,
     icon: IconBrandX,
   },
   {
     name: 'Mail',
     href: 'mailto:minpan1206@gmail.com',
-    linkTitle: `Send an email to ${SITE.title}`,
+    linkTitle: `发送邮件给 ${SITE.title}`,
     icon: IconMail,
   },
 ] as const;
@@ -47,37 +47,37 @@ export const SHARE_LINKS: Social[] = [
   {
     name: 'WhatsApp',
     href: 'https://wa.me/?text=',
-    linkTitle: `Share this post via WhatsApp`,
+    linkTitle: `通过 WhatsApp 分享此文章`,
     icon: IconWhatsapp,
   },
   {
     name: 'Facebook',
     href: 'https://www.facebook.com/sharer.php?u=',
-    linkTitle: `Share this post on Facebook`,
+    linkTitle: `在 Facebook 上分享此文章`,
     icon: IconFacebook,
   },
   {
     name: 'X',
     href: 'https://x.com/intent/post?url=',
-    linkTitle: `Share this post on X`,
+    linkTitle: `在 X 上分享此文章`,
     icon: IconBrandX,
   },
   {
     name: 'Telegram',
     href: 'https://t.me/share/url?url=',
-    linkTitle: `Share this post via Telegram`,
+    linkTitle: `通过 Telegram 分享此文章`,
     icon: IconTelegram,
   },
   {
     name: 'Pinterest',
     href: 'https://pinterest.com/pin/create/button/?url=',
-    linkTitle: `Share this post on Pinterest`,
+    linkTitle: `在 Pinterest 上分享此文章`,
     icon: IconPinterest,
   },
   {
     name: 'Mail',
     href: 'mailto:?subject=See%20this%20post&body=',
-    linkTitle: `Share this post via email`,
+    linkTitle: `通过邮件分享此文章`,
     icon: IconMail,
   },
 ] as const;
